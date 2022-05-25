@@ -1,0 +1,48 @@
+#+TITLE: Chapter 1: Preliminaries
+
+* 1.1 Interest Rates and Compounding
+
+Suppose we deposit (or invest) an amount N at a rate of $r$ per annum, compounded annually.
+Then after 1 year we have $N(1 + r)$, and after $T$ years an amount $N (1 + r)^T$.
+
+N is called the *notional* or *principal*.
+
+If we invest 1 at $r$ compounded $m$ times per annum, we have at time $T$ an amount $(1 + r/m)^{mT} \to e^{rT}$ as $m \to \infty$.
+Therefore, a unit amount compounded continuously at $r$ becomes $e^{rT}$ after $T$ years.
+
+** Result : Equivalent Rate with Compounding Frequency $m$
+
+Suppose the continuously compounded rate for period T is r. Then the equivalent rate $r_m$ with compounding frequency $m$ is $r_m = m(e^{(r/m)} - 1)$
+
+The *money market account*, $M_t$, is the value at time $t$ of 1 invested at interest rate $r$.
+Thus $M_0 = 1$, and if $r$ is the constant continuously compounded rate, $M_t = e^{rT}$.
+
+It is possible to generalize to when $r$ varies with time or is random. The money market account plays an important role when we discuss the Fundamental Theorem of Asset Pricing in chapter 9.
+
+* 1.2 Zero Coupon Bonds and Discounting
+
+A *zero coupon bond* (ZCB) with maturity $T$ is an asset that pays 1 at time $T$ (and nothing else).
+
+** Result: Valuation of a ZCB at time $t < T$
+
+Suppose the continuously compounded interest rate from $t \to T$ is a constant $r$. Then we have
+
+$Z(t, T) = e^{-r(T - t)}$
+
+Similarly, if $r_A$ is the annually compounded rate, then
+
+$Z(t, T) = \frac{1}{(1 + r_A)^{(T - t)}}$
+
+The values $Z(t, T), 0 \leq t \leq T$ are also known as *discount factors*, or present values. A known cashflow of $K$ at time $T$ is worth $KZ(t, T)$ at time $t$. This is often termed 'discounting cashflows back to today' or 'present-valuing'
+
+Given the values $Z(t, T)$ we can recover interest rates. For example, the unique interest rate $r_A$ such that
+
+$Z(t, T)(1 + r_A)^{(T - t)} = 1$
+
+is known as the annual zero coupon rate or *zero rate* for period t to T. Similarly, for continous time:
+
+$Z(t, T)e^{r(T - t)} = 1$
+
+is the *continuous zero rate* for period t to T.
+
+* 1.3 Annuities
