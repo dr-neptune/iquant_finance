@@ -30,3 +30,22 @@ $F(t, T) = S_t e^{r(T - t)}$
 when $t = 0$, we have the simple expression
 
 $F(0, T) = S_0 e^{rT}$
+
+* 2.4 Forward on Asset Paying Known Income
+
+** Result Forward on Assets paying known income
+
+Suppose an asset pays a known amount of income (for example, dividends, coupons, or even rent) during the life of the forward contract, and the present value at $t$ of the income is $I$. Then
+
+$F(t, T) = (S_t - I)e^{r(T - t)}$
+
+* 2.5 Review of Assumptions
+
+1. We can borrow or lend money freely at rate $r$
+2. We can always buy or sell as much of the asset as we want, and the market is sufficiently deep that the amount we buy or sell does not move the price
+3. We can *sell assets short* at will, that is, have negative amounts of assets we do not own
+4. People always want to exploit arbitrages in order to obtain "free money", and have the capacity to do so.
+
+These are all violatable in certain conditions
+
+* 2.6 Value of Forward Contract
