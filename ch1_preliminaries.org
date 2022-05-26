@@ -46,3 +46,53 @@ $Z(t, T)e^{r(T - t)} = 1$
 is the *continuous zero rate* for period t to T.
 
 * 1.3 Annuities
+
+An *annuity* is a series of fixed cashflows $C$ at specified times $T_i, i = 1, ..., n$.
+
+The value $V$ at current time $t \leq T_1$ of an annuity is given by:
+
+$V = C \Sigma_{i = 1}^n Z(t, T_i)$
+
+** Result: Summation of Annuities over M years
+
+Suppose an annuity pays 1 every year for $M$ years, and that annually compounded zero rates are $r$ for all maturities $T = 1, ..., M$. Then
+
+$V = \Sigma_{i = 1}^M \frac{1}{(1 + r)^i} = \frac{1}{r}(1 - \frac{1}{(1 + r)^M})$
+
+* 1.4 Daycount Conventions
+
+We saw that when compounding $m$ times per annum, $r/m$ of notional was paid in interest each $1/m$ years. The fraction $1/m$ is called the *accrual factor*, often denoted by $\alpha$.
+
+* 1.5 An Abridged Guide to Stocks, Bonds, and FX
+
+A *stock* or *share* is an asset giving ownership in a fraction of a company. A stock may at times pay a dividend, a cash payment often expressed as a percentage $q$ of the stock price, usually related to the profitability of the company. We denote the price at time $t$ of a stock by $S_t$. The known current price is called the *spot* price.
+
+A *fixed rate bond* with coupon $c$ and notional $N$ is an asset that pays a coupon $cN$ each year (or at some other frequency) and notional $N$ back at its maturity date $T$.
+Note that a bond of notional 1 is an annuity of $c$ plus a zero coupon bond with maturity $T$. We also encounter *floating rate bonds* where the coupon is linked to a variable interest rate.
+
+The term *security* encompasses stocks and bonds, and broadly covers traded, negotiable instruments that have financial value. An *asset* is a broader definition encompassing securities and instruments that may not be readily tradable such as real estate.
+
+*Foreign currency* is a holding of cash in a non-dollar currency. Its value in USD will depend on the foreign exchange (FX) rate.
+
+Derivatives contracts are entered into between two entities or *counterparties*.
+
+* Exercises
+
+#+begin_src python
+from math import inf, exp
+
+def static_interest_rate_calc(notional, interest_rate, compounding, maturity):
+    """
+    notional: initial deposit
+    interest_rate: the rate of accrual
+    compounding: the number of times the balance compounds per year
+    maturity: the number of years to compound
+    """
+    return round((1 + (interest_rate / compounding)) ** (compounding * maturity) * notional, 2)
+
+static_interest_rate_calc(100, 0.05, 1, 10)
+static_interest_rate_calc(100, 0.05, 4, 10)
+static_interest_rate_calc(100, 0.05, 10000, 10)
+
+exp(0.05 * 10)
+#+end_src
