@@ -1,0 +1,32 @@
+#+TITLE: Chapter 2: Forward Contracts and Forward Prices
+
+A *derivative contract*, or simply *derivative*, is a financial contract between 2 counterparties whose value is a function of - derives from, hence derivative - the values of another variable, for example the price of a security such as a stock. In this book, we will exclusively consider *financial derivatives*, derivatives of financial assets like stocks or variables like interest rates.
+
+Derivatives traded directly between two counterparties are called *over-the-counter (OTC)* derivatives. OTC derivatives contrast with *exchange-traded* derivatives, where an exchange matches buyers and sellers and each counterparty faces the exchange on the contract.
+
+* 2.2 Forward Contracts
+
+A *forward contract*, or simply *forward*, is an agreement between two counterparties to trade a specific asset, for example a stock, at a certain future time $T$ and at a certain price $K$.
+At the current time $t \leq T$, one counterparty agrees to buy the asset at $T$, and is *long* the forward contract. The other counterparty agrees to sell the asset, and is *short* the forward contract. The specified price $K$ is known as the *delivery price*. The specified time $T$ is known as the *maturity*.
+
+We define $V_K(t, T)$ to be the *value* at the current time $t \leq T$ of being long a forward contract with delivery price $K$ and maturity $T$, that is, how much the contract itself is worth at time $t$ to the counterparty which is long.
+
+Since the counterparty long the forward contract must pay $K$ at $T$ to buy an asset which is worth $S_T$, we immediately have $V_K(T, T) = S_T - K$. Similarly, the payout at maturity from a short forward contract is $K - S_T$.
+
+We define the *forward price* $F(t, T)$ at current time $t \leq T$ to be the delivery price $K$ such that $V_K(t, T) = 0$. That is, such that the forward contract has 0 value at time $t$.
+
+Suppose a stock which pays no dividends always has price 100 and interest rates are always 0. Then we should convince ourselves that $F(t, T) = 100$ and $V_K(t, T) = 100 - K$ for all $t \leq T$.
+
+* 2.3 Forward on Asset Paying No Income
+
+Let $r$ be the constant zero rate with continuous compounding, and for now suppress any dependence of the interest rate on time.
+
+** Result:
+
+For an asset paying no income, for example a stock that pays no dividends,
+
+$F(t, T) = S_t e^{r(T - t)}$
+
+when $t = 0$, we have the simple expression
+
+$F(0, T) = S_0 e^{rT}$
