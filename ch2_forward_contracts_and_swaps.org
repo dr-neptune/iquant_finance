@@ -49,3 +49,44 @@ $F(t, T) = (S_t - I)e^{r(T - t)}$
 These are all violatable in certain conditions
 
 * 2.6 Value of Forward Contract
+
+** Result Value of a Forward Contract on an Asset paying no known income
+
+The value of the forward contract on an asset satisfies
+
+$V_K (t, T) = (F(t, T) - K)e^{-r(T - t)}$
+
+* 2.7 Forward on Stock Paying Dividends and on Currency
+
+** Result
+
+Suppose a stock pays dividends at a known dividend yield $q$, expressed as a percentage of the stock price on a continually compounded per annum basis. Then the forward price satisfies
+
+$F(t, T) = S_t e^{(r - q)(T - t)}$
+
+Simular to the example where the asset pays a known income, the presence of dividends lowers the forward price. There is an advantage to buying the asset spot versus buying it forward, since in the latter case we do not receive any dividends paid before $T$. The forward price is lower in order to compensate. The forward contract on a foreign currency is similar.
+
+** Result
+
+Suppose $X_t$ is the price at time $t$ in dollars of one unit of foreign currency. Let $r_d$ be the dollar zero rate and $r_f$ the foreign zero rate, both constant and continually compounded. Then the forward price satisfies
+
+$F(t, T) = X_t e^{(r_d - r_f)(T - t)}$
+
+* 2.8 Physical vs. Cash Settlement
+
+We have assumed that forwards are *physically settled*, meaning that one actually pays $K$ and receives the asset at time $T$. However, some forwards are *cash settled*, meaning one simply receives (pays if negative) the amount $S_T - K$ at $T$.
+
+Cash settled contracts are also sometimes known as *contracts for difference*. Both have the same value at $T$, and hence for $t \leq T$. However, a cash settled forward has no further exposure to the asset price, whilst a physically settled contract -- where one owns the asset at $T$ -- continues to have exposure after $T$.
+
+Cash-settled forwards have many similarities with *spread bets*. For example, if one were to buy Boston Red Sox wins at 90, in size one dollar per win, one would have a long forward position with a delivery price 90. If the Red Sox win 100 games, the better would make $10, whereas if they win 81 games, the better loses $9. The payout is $S_T - K$, where $S_T$ is the number of wins.
+
+A key difference is that $S_T$ is not the price of a security or tradable asset and so the replication and no-arbitrage arguments for forward pricing do not apply.
+
+* 2.9 Summary
+
+| Underlying                         | Forward Price                |
+|------------------------------------+------------------------------|
+| Asset paying no income             | $S_t e^{r(T - t)}$           |
+| Asset paying known income $I$      | $(S_t - I)e^{r(T - t)}$      |
+| Asset paying dividends at rate $q$ | $S_t e^{(r - q)(T - t)}$     |
+| Foreign Exchange                   | $X_t e^{(r_d - r_f)(T - t)}$ |
