@@ -63,3 +63,31 @@ A *forward rate agreement* (FRA) is a forward contract to exchange 2 cashflows. 
 at time $T + \alpha$
 
 Thus, the payout of the FRA is $\alpha(L_T [T, T + \alpha] - K)$ at time $T + \alpha$
+
+The *forward libor rate*, denoted by $L_t[T, T + \alpha]$, is the value of $K$ such that the FRA has zero value at time $t \leq T$.
+
+** Result Forward Libor Rate
+
+The forward libor rate is given by:
+
+$L_t[T, T + \alpha] = \frac{Z(t, T) - Z(t, T + \alpha)}{\alpha Z(t, T + \alpha)}$
+
+Setting $t = T$, we have
+
+$Z(T, T + \alpha) = \frac{1}{1 + \alpha L[T, T + \alpha]}$
+
+which links the ZCB price (or discount factor) to the interest rate for that period.
+
+* 3.5 Valuing Floating and Fixed Cash Flows
+
+By definition of forward libor, the value at $t$ of an agreement to receive the unknown floating libor payment $\alpha L_T[T, T + \alpha]$ at $T + \alpha$ equals the value at $t$ of receiving the known quantity $\alpha L_t[T, T + \alpha]$ at $T + \alpha$, which is
+
+$\alpha L_t[T, T + \alpha]Z(t, T + \alpha) = Z(t, T) - Z(t, T + \alpha)$
+
+the difference between two ZCB prices
+
+We thus have established the result that receiving an unknown libor interest payment from $T$ to $T + \alpha$ on a unit of cash has the same value as receiving the unit of cash at $T$, then paying the unit back at $T + \alpha$. This is intuitively clear, as one can invest the unit of cash in a libor deposit, receiving the libor interest payment.
+
+The result is interesting between we have shown that the value at $t$ or agreeing to receive the random quantity $L_T[T, T + \alpha]$ at time $T + \alpha$ is a deterministic function of the known quantities $Z(t, T)$ and $Z(t, T + \alpha)$. This value does not depend on any distributional assumptions about the forward libor rate (a random variable). This is a key characteristic of *forward contracts*.
+
+Valuing a fixed cashflow is easy. We know that receiving a fixed payment of $K$ at time $T + \alpha$ has value at time $t$ equal to $KZ(t, T + \alpha)$.
