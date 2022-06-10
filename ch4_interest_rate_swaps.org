@@ -1,1 +1,45 @@
 #+TITLE: Chapter 4: Interest Rate Swaps
+
+Swaps allow institutions to manage their exposure to interest rate movements or to adjust the nature of their interest rate liabilities.
+Swaps can be:
+- a trading tool, in particular allowing a counterparty to "buy" or "sell" interest rates and thus profit (or lose) on their movements
+- a risk management tool, for example, allowing a counterparty to replace unknown floating cash flows with a fixed stream
+
+* 4.1 Swap Definition
+
+A *swap* is an agreement between two counterparties to exchange a series of cashflows at agreed dates. A swap has a start date $T_0$, maturity $T_n$, and payment dates $T_i$ where $i = 1, ..., n$
+
+In a standard, or *vanilla* swap we typically have $T_{i + 1} = T_i + \alpha$ for fixed $\alpha$.
+
+The *floating leg* of the swap consists of payments $\alpha L_{T_i}[T_i, T_i + \alpha]$, that is, libor fixed at $T_i$ for the period $T_i \to T_{i + \alpha}$ paid at $T_{i} + \alpha$
+
+The *fixed leg* of the swap consists of payments $\alpha K$ at $T_{i} + \alpha$, that is, a fixed rate $K$ accrued from $T_i \to T_{i + \alpha}$ paid at $T_{i} + \alpha$
+
+* 4.2 Forward Swap Rate and Swap Value
+
+The value of the fixed leg is given by
+
+$V_K^{fxd}(t) = K \Sigma_{i = 1}^n \alpha Z(t, T_i) = K P_t[T_0, T_n]$
+
+The fixed leg of the swap has the present value of an annuity paying $K$ times accrual factor $\alpha$ at each payment date
+
+The term $P_t[T_0, T_n]$ is called the *pv01* of the swap, the present value of receiving 1 times $\alpha$ at each payment date
+
+Since a floating leg is a series of regular libor payments, we can value it by replacing each libor with its forward. Thus, the value of the floating leg is
+
+$V^{fl}(t) = \Sigma_{i=1}^n L_t[T_{i - 1}, T_i] \alpha Z(t, T_i) = Z(t, T_0) - Z(t, T_n)$
+
+
+The *forward swap rate* at time t for a swap from $T_0 \to T_n$ is defined to be the value $y_t[T_0, T_n]$ of the fixed rate K such that the value of the swap at t is 0.
+
+** Result : equating fixed and floating legs, we obtain for $t \leq T_0$
+
+$y_t[T_0, T_n] = K = \frac{\Sigma_{i=1}^n L_t[T_{i - 1}, T_i] \alpha Z(t, T_i)}{\Sigma_{i = 1}^n \alpha Z(t, T_i)} = \frac{Z(t, T_0) - Z(t, T_n)}{P_t[T_0, T_n]}$
+
+The forward swap rate is thus a weighted average of forward libors, which collapses to a ratio of a linear combination of ZCB prices to the pv01 (itself a linear combination of ZCB prices).
+
+** Result : Value of a swap at time t where we pay a fixed rate K and receive libor
+
+$V_K^{SW}(t) = (y_t[T_0, T_n] - K) P_t[T_0, T_n]$
+
+* 4.3 Spot-starting Swaps
