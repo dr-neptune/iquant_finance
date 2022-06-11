@@ -43,3 +43,24 @@ The forward swap rate is thus a weighted average of forward libors, which collap
 $V_K^{SW}(t) = (y_t[T_0, T_n] - K) P_t[T_0, T_n]$
 
 * 4.3 Spot-starting Swaps
+
+When $t = T_0$, $y_{T_0}[T_0,T_n]$ is called the *par* or *spot-starting* swap rate of maturity $T_n - T_0$. Swaps are now so liquid and widely traded that swap rates have become the "primitive" source of interest rate price information from which ZCB prices, forward libor, and other forward rates are typically calculated.
+
+** Result : par swap rate
+
+The par swap rate $y_{T_0}[T_0,T_n]$ is the fixed rate at which one can invest 1 at time $T_0$ until time $T_n$ receiving fixed payments of $\alpha y_{T_0}[T_0, T_n]$ at times $T_i$, then notional 1 back at $T_n$.
+
+Hence the swap rate is a "coupon" rate (where interest coupons received cannot necessarily be assumed to be reinvested at the same rate).
+
+* 4.4 Swaps as difference between Bonds
+
+A *fixed rate bond* with notional $N$ and coupon $c$ pays $\alpha c N$ at fixed dates $T_i$, and $N$ at $T_n$, where we have $T_{i + 1} = T_i + \alpha$.
+A *floating rate bond* with notional $N$ pays libor coupons $\alpha N L_{T_{i - 1}}[T_{i - 1}, T_i]$ at $T_i$, and $N$ at $T_n$.
+
+Consider a swap with notional 1 where we pay a fixed rate $K$ and receive libor
+
+** Result
+
+$V_K^{SW}(t) = V^{FL}(t) - V_K^{FXD}(t) = B^{FL}(t) - B_K^{FXD}(t)$
+
+The value of a swap with par $K$ is the difference between the price of a floating rate bond and the price of a fixed rate bond
