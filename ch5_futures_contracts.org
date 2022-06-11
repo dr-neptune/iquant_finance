@@ -1,1 +1,53 @@
 #+TITLE: Chapter 5: Futures Contracts
+
+A futures contract is a derivative with similarities to a forward, essentially being a contract to trade an underlying asset at a fixed time in the future.
+There are 2 key differences:
+1. a futures contract involves cashflows each day up until the maturity date $T$ and not just at $T$.
+2. Virtually all futures contracts are traded on exchanges rather than as bilateral over-the-counter contracts between 2 counterparties
+
+* 5.1 Futures Definition
+
+Similarly to a forward contract, a *futures contract* has a specified maturity $T$, an underlying asset, and a *futures price* $\Phi(t, T)$ at which one can go long or short the contract at no cost at time $t$.
+The futures price at maturity $T$ is defined to be $\Phi(T, T) = S_T$.
+
+*Futures contract*
+
+At time t, we can go long a futures contract with price $\Phi(t, T)$. Each day we receive (pay if negative) the *mark-to-market* change $\Phi(t, T) - \Phi(i - 1, T)$, where $\Phi(i, T)$ is the futures price on day $i$. This amount is known as the *variation margin*. Over the life of the contract we receive mark-to-market gains that total $\Phi(T, T) - \Phi(t, T) = S_T - \Phi(t, T)$. However, the constituent payments are made at different times and thus the value of the payments at $T$ will not in general equal $S_T - \Phi(t, T)$.
+
+contracts are /netted/, meaning that if we go long one contract and then short one contract then we have no position.
+
+Each market participant deposits initial margin at the exchange, and receives (or posts) additional variation margin as prices move up (or down). Initial margin is usually established to be a size that can cover 99% of five-day moves. It is important to note that *margin (particularly variation margin) accrues interest*. This key feature gives rise to the difference between futures and forward contracts which we explore further in the next section.
+
+* 5.2 Futures vs. Forward Prices
+
+** Result
+
+If interest rates are constant, then
+
+$\Phi(t, T) = F(t, T)$
+
+Consider the case in which the interest rate $r$ is not constant. Suppose the asset price $S_T$ is positively correlated with the interest rate and thus tends to increase as interest rates increase. If we are long a futures contract, then we receive mark-to-market gains earlier than the forward in environments when interest rates are high, and thus the gains can be invested at a higher rate. Similarly, losses from the long position have to be paid early when rates are low (and thus the future value of the losses is lower). Thus in this case we would prefer a long futures position to a long forward position.
+
+If the asset price and interest rate are positively corelated, we deduce by this heuristic argument that $\Phi(t, T) - F(t, T) > 0$. The difference on the lhs is called the *futures convexity correction*.
+
+** Result : Futures Convexity Correction
+
+$\Phi(t, T) - F(t, T)$ is proportional to the covariance between the asset price $S_T$ and money market account $M_T$. In particular, if the asset price $S_T$ and money market account $M_T$ are independent, then $\Phi(t, T) = F(t, T)$. If they are positively correlated, then $\Phi(t, T) - F(t, T) > 0$.
+
+$\mathrm{cov}(S_T, M_T) \propto (T - t)$, so typically the convexity correction is greater for futures contracts with longer maturities.
+
+* 5.3 Futures on Libor Rates
+
+One common type of futures contract are those linked to libor rates, in particular *Eurodollar* futures on 3-month US dollar libor, *short sterling* futures on 3-month sterling libor, and *Euribor* futures on 3-month Euribor.
+
+The *Eurodollar futures* contract with settlement date $T$ is defined by its price at maturity
+
+$\Phi(T, T) = 100(1 - L_T[T, T + \alpha])$
+
+where $L_T[T, T + \alpha]$ is the 3-month dollar libor rate. For example, if 3-month dollar libor on the maturity date of the futures contract fixed at 1.25%, then the futures price at maturity is 98.75.
+
+The holder of a long position in a Eurodollar futures contract receives positive variation margin when forward interest rates go down, and the futures price goes up. Forward interest rates and the money market account are usually positively correlated. Therefore, a long Eurodollar position receives money early when interest rates are low, and pays out money early when rates are high. Thus, the Eurodollar futures price will typically be lower than the forward price. Specifically:
+
+$(1 - \frac{\Phi(t, T)}{100}) - L_t[T, T + \alpha] > 0$
+
+This quantity is known as the Eurodollar *convexity correction.*
