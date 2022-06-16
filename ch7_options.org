@@ -1,1 +1,26 @@
 #+TITLE: Chapter 7: Options
+
+* 7.1 Option Definitions
+
+A *European call option* with *strike* or *exercise price* $K$ and *exercise date* or *maturity* $T$ on an asset is the right -- but not the obligation -- to buy the assest for $K$ at time $T$. The execution of this right is termed the *exercise* of the option.
+
+The payout $g(S_T) = \max{(S_T - K, 0)} = (S_T - K)^+$
+
+A *European put option* is the right to sell the asset for $K$ at time $T$.
+
+The payout of a put option at time $T$ is $\max{(K - S_T, 0)} = (K - S_T)^+$
+
+A *straddle* is a call plus a put of the same strike and maturity, and has payout $|S_T - K|$.
+
+- A *European* option allows exercise only at time $T$
+  - these are common on forward-rate agreements, and known as caps and floors
+- An *American* option allows exercise at any time $t \leq T$
+  - these are common on stocks
+- A *Bermudan* option allows exercise at a finite set of times $T_0, ..., T_n \leq T$
+  - these are common on swaps, where they underlie mortgages and callable bonds
+
+At time t, a call option with strike K at maturity T is said to be:
+
+- *at-the-money* if $S_t = K$
+- *in-the-money* if $S_t > K$
+- *out-of-the-money* is $S_t < K$
