@@ -1,1 +1,25 @@
 #+TITLE: Chapter 6: No Arbitrage Principle
+
+In this chapter we formalize the no-arbitrage and replication arguments used when determining forward prices.
+
+* 6.1 Assumption of No-Arbitrage
+
+Let the value at current time t of a portfolio $A$ of assets be denoted $V^A(t)$.
+
+A portfolio $A$ is an *arbitrage portfolio* if its current value $V^A(t) \leq 0$ and, for some $T > t$, $V^A(t) \geq 0$ for all states of the world, with $V^A(T) > 0$ with non-zero probability.
+That is, an arbitrage portfolio satisfies $V^A(T, \omega_i) \geq 0$ for all $i$, and $P\{\omega_j : V^A(T, \omega_j) > 0 \}$
+
+The *assumption of no-arbitrage* -- that is, there exist no arbitrage portfolios -- underpins quantitative finance. This assumption is often informally restated as phrases like "there is no such thing as free money"
+
+* 6.2 Monotonicity Theorem
+
+** Theorem
+
+Assume no-arbitrage. If portfolios $A$ and $B$ are such that $V^A(T, \omega_i) \geq V^B(T, \omega_i)$ for all $i$, then $V^A(t) \geq V^B(t)$.
+If, in addition $V^A(t, \omega_j) > V^B(t, \omega_j)$ for some $j$ with $P\{w_j\} > 0$, then $V^A(t) > V^B(t)$.
+
+** Corollary
+
+If $V^A(T, \omega_i) = V^B(T, \omega_i)$ for all $i$, then $V^A(t) = V^B(t)$
+
+This corollary is the formal statement of the replication argument from chapter 2.
