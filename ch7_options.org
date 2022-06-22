@@ -70,3 +70,75 @@ The price of an American call and European call on a non-dividend-paying stock a
 * 7.4 Call and Put Spreads
 
 A *call spread* is a portfolio consisting of long one call option with strike $K_1$ and short one call option with strike $K_2$, both with maturity $T$, where $K_1 < K_2$.
+
+A call spread has value $C_{K_1}(t, T) - C_{K_2}(t, T)$ at time $t$. At time $T$ its payout equals
+
+- 0 if $S_T \leq K_1$
+- $S_T - K_1$ if $K_1 \leq S_T \leq K_2$
+- $K_2 - K_1$ if $S_T \geq K_2$
+
+** Result
+
+If $K_1 < K_2$, then $C_{K_1}(t, T) \geq C_{K_2}(t, T)$ and $P_{K_1}(t, T) \leq P_{K_2}(t, T)$
+
+In particular, the call spread and put spread have non-negative value for all $t \leq T$
+
+** Result
+
+If $K_1 < K_2$, then
+
+$C_{K_1}(t, T) - C_{K_2}(t, T) \leq Z(t, T)(K_2 - K_1)$
+
+and
+
+$P_{K_2}(t, T) - P_{K_1}(t, T) \leq Z(t, T)(K_2 - K_1)$
+
+** Result
+
+Combining the two previous results, we have
+
+$C_{K_2}(t, T) \leq C_{K_1}(t, T) \leq C_{K_2}(t, T) + Z(t, T)(K_2 - K_1)$
+
+* 7.5 Butterflies and Convexity of Option Prices
+
+** Result
+
+Let $K_1 < K_2$, $\lambda \in (0, 1)$ and let $K^* = \lambda K_1 + (1 - \lambda) K_2$. Then we have
+
+$C_{K^*}(t, T) \leq \lambda C_{K_1}(t, T) + (1 - \lambda)C_{K_2}(t, T)$
+
+In other words, $C_K(t, T)$ is a convex function of $K$.
+
+A portfolio of this form (or multiples of it) is called a *call butterfly*.
+
+* 7.6 Digital Options
+
+A *digital call option* with strike $K$ and maturity $T$ has payout at $T$
+
+- 1 if $S_T \geq K$
+- 0 if $S_T < K$
+
+A *digital put option* with strike $K$ and maturity $T$ pays
+
+
+- 1 if $S_T \leq K$
+- 0 if $S_T > K$
+
+* 7.7 Options on Forward Contracts
+
+Let $C^{F_K}(t, T)$ be the price of a European call option with exercise date $T$ on a forward contract, specifically the right to enter at time $T$ (at 0 cost) into a long forward contract with delivery price $K$ at maturity $T$.
+
+
+** Result
+
+The price of an American put on a forward contract equals the price of a European put, that is
+
+$\tilde{P}^{F_K}(t, T) = P^{F_K}(t, T) = P_K(t, T)$
+
+Therefore we have $\tilde{P}^{F_K}(t, T) \leq \tilde{P}_K(t, T)$
+
+Similarly,
+
+$\tilde{C}^{F_K}(t, T) = C^{F_K}(t, T) = C_K(t, T)$
+
+The right to pay $K^*$ at $T$ to enter into a forward contract, with delivery price $K$ and maturity $T$, is the same as the right to pay $K + K^*$ to buy the stock at $T$.
