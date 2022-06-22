@@ -24,3 +24,49 @@ At time t, a call option with strike K at maturity T is said to be:
 - *at-the-money* if $S_t = K$
 - *in-the-money* if $S_t > K$
 - *out-of-the-money* is $S_t < K$
+
+At time $t \leq T$, a call option is struck:
+
+- *at-the-money-forward (ATMF)* if $K = F(t, T)$
+- *in-the-money-forward* if $K < F(t, T)$
+- *out-of-the-money-forward* if $K > F(t, T)$
+
+The *intrinsic value* of an option is its payout were we able to exercise it now. Thus, the intrinsic value of a call is $\max\{S_t - K, 0\}$, and of a put is $\max\{K - S_t, 0\}$.
+
+* 7.2 Put-Call Parity
+
+Let $C_K(t, T)$ be the price at time $t$ of the European call, and $P_K(t, T)$ be the price of the European put, with strike price $K$ at maturity $T$.
+
+** Result
+
+$C_K(t, T) \geq 0$ and $P_K(t, T) \geq 0$
+
+** Result : Put-Call Parity
+
+Put-Call parity relates the prices of the call and put of the same strike with the value of the forward.
+
+$C_K(t, T) - P_K(t, T) = V_K(t, T)$
+
+where $V_K(t, T)$ is the value at time $t$ of the forward contract with delivery price $K$, i.e. $V_K(t, T) = (F(t, T) - K)Z(t, T)$
+
+for ATMF options, put-call parity becomes
+
+$C_{F(t, T)}(t, T) - P_{F(t, T)}(t, T) = 0$
+
+That is, the price of an ATMF put equals that of an ATMF call. This result is independent of any distributional assumptions and holds regardless of whether $S_T$ is skewed to the left or right, or has any other unusual distributional features.
+
+* 7.3 Bounds on Call Prices
+
+** Result
+
+The European call price on a non-dividend paying stock satisfies
+
+$\max\{0, S_t - KZ(t, T)\} \leq C_K(t, T) \leq S_t$
+
+** Corollary
+
+The price of an American call and European call on a non-dividend-paying stock are equal
+
+* 7.4 Call and Put Spreads
+
+A *call spread* is a portfolio consisting of long one call option with strike $K_1$ and short one call option with strike $K_2$, both with maturity $T$, where $K_1 < K_2$.
