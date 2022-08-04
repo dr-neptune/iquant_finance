@@ -1,0 +1,68 @@
+#+TITLE: Chapter 8: Replication and Risk-Neutrality on the Binomial Tree
+
+We now develop the link between *replication arguments*, *no-arbitrage*,
+and *risk-neutral probabilities*.
+
+* 8.1 Hedging and Replication in the 2-State World
+
+Constructing an argument in which we construct a portfolio of an
+option and stock that has no risk to movements in the stock price is
+called a *hedging argument*.
+
+A complementary approach is to consider a *replication* argument.  In a
+2-state world there must be a unique linear combination of the stock
+and zero-coupon bond that agrees with the option value in both states
+at time $T=1$.  That is, a portfolio of $\lambda$ stocks and $\mu$
+ZCBs which matches the option payout at $T = 1$.
+
+The hedging argument constructs a portfolio of stock and option that
+is hedged to any movement in the stock price, that is, it uses the
+option and stock to replicate the bond.  The replication argument
+constructs a portfolio of stock and bond to replicate the option. We
+could equally use a portfolio of option and bond to replicate the
+stock.
+
+There are 2 states of the world and thus any 2 linearly independent
+assets will span a payout at $T=1$. If the option price is different
+than the price given by the replication argument, then we can
+construct an arbitrage portfolio.
+
+More generally, for a derivative with payout $D(\omega_A)$ in state A
+and $D(\omega_B)$ in state B, we can find the replicating portfolio by
+solving the linear equations:
+
+$\lambda S_1(\omega_A) + \mu = D(\omega_A)$
+$\lambda S_1(\omega_B) + \mu = D(\omega_B)$
+
+where $\lambda$ is the number of long stocks and $\mu$ is a number of ZCBs
+
+* 8.2 Risk-Neutral Probabilities
+
+Using the probability $p^*$, under which the present value of the
+expected option payout is the only possible arbitrage-free option
+price (found by the replication argument), the expected value of the
+stock price is its forward price (and its expected return is the
+interest rate $r$). The value of $p^*$ for which this holds is called
+*risk-neutral probability*.
+
+In this particular one-step two-state binomial tree, the only possible
+arbitrage-free option price is the price given by *risk-neutral
+pricing*, that is, where prices are discounted expectations of payouts
+using the risk-neutral probability.
+
+The terminology "risk-neutral probability" captures the fact that
+these probabilities depend on the values the stock can take in 2
+states of the world, but not on the actual probability (or risk) of
+those states. Risk-neutral pricing holds for all the assets. The price
+of /any/ contract is the discounted risk-neutral expectation of its
+payout at $T = 1$.
+
+* Summary of 8.1 + 8.2
+
+The replication argument determines that only one price can be free of
+arbitrage and that any other price is arbitrageable. Risk-neutral
+pricing demonstrates that this replication price is indeed
+arbitrage-free. Therefore, we have obtained a unique arbitrage-free
+price.
+
+* 8.3 Multiple Time Steps
