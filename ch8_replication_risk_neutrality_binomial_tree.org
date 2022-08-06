@@ -63,6 +63,17 @@ The replication argument determines that only one price can be free of
 arbitrage and that any other price is arbitrageable. Risk-neutral
 pricing demonstrates that this replication price is indeed
 arbitrage-free. Therefore, we have obtained a unique arbitrage-free
-price.
+price
 
 * 8.3 Multiple Time Steps
+
+When dealing with multiple timesteps, you can work backwards.
+For example, first calculate $C_{110, A}(1, 2)$ and $C_{110, B}(1, 2)$, then use those values as the output
+to calculate the number of stocks $\lambda_0$ and ZCBs $\mu_0$ needed to go from $T = 0 \to T = 1$.
+
+There is a much easier way when we know risk-neutral pricing and the probability of an up-move is 2/3
+at each node. Then the results look just like stacking probabilities:
+
+$C_{110}(0, 2) = Z(0, 2) E_*(S_2 - K)^+ = \frac{1}{(1.1)^2} (\frac{2}{3})^2 34$
+
+* 8.4 General No-Arbitrage Condition
