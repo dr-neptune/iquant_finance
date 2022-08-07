@@ -77,3 +77,40 @@ at each node. Then the results look just like stacking probabilities:
 $C_{110}(0, 2) = Z(0, 2) E_*(S_2 - K)^+ = \frac{1}{(1.1)^2} (\frac{2}{3})^2 34$
 
 * 8.4 General No-Arbitrage Condition
+
+
+#+DOWNLOADED: screenshot @ 2022-08-07 10:19:18
+[[file:8.4_General_No-Arbitrage_Condition/2022-08-07_10-19-18_screenshot.png]]
+
+** Theorem
+
+The binominal tree is arbitrage-free iff $d < r < u$
+
+** Result
+
+No arbitrage portfolios iff $d < r < u$ iff $0 < p^* < 1$
+
+That is, for the binomial tree, the absence of arbitrage portfolios is
+equivalent to the existence of a unique risk-neutral probability $p^*$
+under which prices are discounted expected values of the payout at
+maturity.
+
+The replicating portfolio for a general derivative contract, with payout $\gamma$ in the down state and $\gamma + \beta$ in the up state, $\gamma, \beta \in \mathbb{R}$, is $\lambda$ stocks and $\mu$ ZCBs, where
+
+$\lambda = \frac{\beta}{S_0 (u - d)}$
+
+$\mu = \gamma - \frac{\beta (1 + d)}{u - d}$
+
+The replication price can be expressed as *the discounted risk-neutral expectation*.
+
+$\frac{1}{1 + r}(p^*(\gamma + \beta) + (1 - p^*)\gamma)$
+
+When we have $n$ identical time steps, the risk-neutral probability distribution for $S_n$ is binomial with
+
+$P^*(S_n = S_0(1 + u)^j(1 + d)^{n - j}) = \binom{n}{j}p^{*j}(1 - p^*)^{n - j}$ for $j = 0, ..., n$
+
+For a derivative with payout $g(S_n)$ at time $n$, its price at time $T = 0$ is, therefore, given by
+
+$\frac{1}{(1 + r)^n}E_*(g(S_n)) = \frac{1}{(1 + r)^n}\Sigma_{j=0}^n\binom{n}{j}p^{*j}(1 - p^*)^{n - j}g(S_0(1 + u)^j(1 + d)^{n - j})$
+
+We can simplify this when it is a call option to obtain the Cox-Ross-Rubinstein formula
