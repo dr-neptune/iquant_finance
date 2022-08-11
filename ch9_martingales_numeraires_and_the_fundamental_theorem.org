@@ -1,0 +1,148 @@
+#+TITLE: Chapter 9: Martingales, Numeraires, and the Fundamental Theorem
+
+In this chapter we tie together our work on replication and
+risk-neutrality with the probabilistic concept of a martingale, to
+establish the fundamental theorem of asset pricing. The fundamental
+theorem precisdely establishes the link between expected values and
+arbitrage-free prices.
+
+* 9.1 Definition of Martingales
+
+A series of random variables $X_0, X_1, ..., X_n$ is a *martingale* if
+
+$E(|X_i|) < \infty$ for all $i$, and $E(X_{n + 1} | X_0, ..., X_n) = X_n$
+
+If $X_0, ..., X_n$ is *Markov*, that is, $P(X_{n + 1} | X_0, ..., X_n) =
+P(X_{n + 1} | X_n)$
+or $X_n$ captures all the information about the conditional distribution of $X_{n + 1}$
+then the martingale condition becomes $E(X_{n + 1} | X_n) = X_n$.
+
+A martingale is the probabilistic definition of a "fair game", where
+the expected value of a portfolio's value tomorrow is its value today.
+
+$X_n$ is a martingale with respect to $Y_0, ..., Y_n$ if
+
+$E(|X_i|) < \infty$ for all $i$, and $E(X_{n + 1} | Y_n) = X_n$
+
+The process $Y_0, ..., Y_n$ is called a *filtration*. We can think of
+this as the price information known at time n. In finance, often
+$Y_n = S_n$, the stock price, and the martingale $X_n$ is often the
+discounted price derivative of the stock.
+
+** Result
+
+On the binomial tree $E_*(S_n | S_0) = S_0(1 + r)^n$
+
+More generally:
+
+$E_*(S_n | S_m) = S_m(1 + r)^{n - m}$ for $m \leq n$
+
+** Result
+
+On the binomial tree, $S_m / M_m$, the discounted stock price, is a
+martingale under the risk-neutral probability, where $M_m$ is the
+value of the money market account ($M_0 = 1$, $M_n =(1 + r)^n$)
+
+$E_*(\frac{S_n}{M_n} | S_m) = \frac{S_m}{M_m}$ for $m \leq n$
+
+** Result
+
+On the binomial tree, the discounted call price $C_K(m, n) / M_m$ is a
+martingale under the risk-neutral probability.
+
+
+Note that the price of a call with maturity date n satisfies
+
+$C_K(0, n) = \frac{1}{(1 + r)^n}E_*((S_n - K)^+ | S_0)$
+
+In general, we have
+
+$\frac{C_K(m, n)}{M_m} = E_*(\frac{C_K(n, n)}{M_n} | S_m)$
+
+The risk-neutral pricing is equivalent to the statement that ratios of
+prices to the money market account are martingales under the risk-neutral
+probability.
+
+* 9.2 Numeraires and the Fundamental Theorem
+
+** The Fundamental Theorem of Asset Pricing
+
+There are no arbitrage portfolios iff there exists a risk-neutral
+probability distribution $P^*$ such that the ratios of asset prices to
+the money market account are martingales under $P^*$.
+
+In particular, when interest rates are a constant $r$, and $M_n = (1 +
+r)^n$,
+the fundamental theorem on the binomial tree states that there are no
+arbitrage portfolios iff derivative prices are the discounted expected
+values of their payouts at maturity.
+
+There are 2 important extensions to the Fundamental Theorem:
+
+1. Under suitable conditions, the result holds for continuous models.
+2. The choice of the money market account as the unit by which we
+   discount or rebase prices is unimportant. We call this rebasing
+   unit the *numeraire*.
+
+** More General Version of the Fundamental Theorem of Asset Pricing
+
+There are no arbitrage portfolios iff for a given positive asset (with
+price $N_t > 0$ at time t) there exists a probability $Q^*$, defined
+over the same set of possible outcomes, such that the ratios of asset
+prices to the numeraire $N_t$ are martingales under $Q^*$.
+
+By "same set of possible outcomes" we mean that the set of outcomes
+which has positive probability are the same under $Q^*$ as under the
+actual probability distribution.
+
+The probability distribution $Q^*$ will be different depending on the
+choice of the numeraire. We call $Q^*$ the *risk-neutral distribution
+with respect to $N_t$*
+
+So far we have implicitly used the money market as the numeraire, but
+we have also assumed that $r$ is a constant and $M_T = e^{rT}$ is
+deterministic. In general $r$ and $M_T$ will not be constant.
+
+We can navigate the complexity of random interest rates in an elegant
+manner by choosing an alternative numeraire, the ZCB with maturity
+$T$. Now $N_t = Z(t, T)$ has the nice property that $Z(T, T) = 1$,
+which holds regardless of whether interest rates are constant.
+
+Then we obtain:
+
+$D(t, T) = Z(t, T) E_*(D(T, T) | S_t)$
+
+where $E_*$ is the risk-neutral expectation with respect to the ZCB
+numeraire.
+
+The forward price $F(t, T)$ such that $V_K(t, T) = 0$, is given by:
+
+$F(t, T) = E_*(S_T | S_t) = \frac{S_t}{Z(t, T)}$
+
+* 9.3 Change of Numeraire on the Binomial Tree
+
+With $n$ equivalent pairs $(M_m, p^*), (S_m, q^*)$, ... of numeraire
+and risk-neutral probabilities, each can be used to price derivatives
+consistently. The change of probability from $p^* \to q^*$ is
+sometimes called a *change of measure*.
+
+* 9.4 Fundamental Theorem: A Pragmatic Example
+
+This is a handy approximation for quick calculation of at-the-money forward straddle prices:
+
+$Z(t, T)\sqrt{\frac{2}{\pi}}\psi\sqrt{T - t} \approx 0.8 Z(t, T) \psi \sqrt{T - t}$
+
+* 9.5 Fundamental Theory: Summary
+
+Using the numeraire, the fundamental theorem allows us to write $D(t,
+T)$, the price at time $t$ of a stock derivative with payout $D(T, T)$
+at $T$, as
+
+$D(t, T) = Z(t, T)E_*(D(T, T) | S_t)$
+
+where $E_*$ is the risk-neutral expectation with respect to $Z(t, T)$.
+
+If the derivative has payout $D(T, T) = g(S_T)$ and the risk-neutral
+density is $f(S_T)$, then the option price is given by:
+
+$D(t, T) = Z(t, T) \int g(x) f(x) dx$
