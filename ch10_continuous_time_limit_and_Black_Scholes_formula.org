@@ -114,4 +114,52 @@ $d_2 = d_1 - \sigma \sqrt{T - t}$
 #+DOWNLOADED: screenshot @ 2022-08-16 08:36:06
 [[file:10.3_Black-Scholes_Formula/2022-08-16_08-36-06_screenshot.png]]
 
+In our exposition, the formula has a straight-forward interpretation
+as the expected value of the option payout under the lognormal
+risk-neutral distribution.
+
+In practice the risk-neutral distribution has to be log-normal. We
+will see in the next chapter that the Black-Scholes-Merton formula can
+still be useful even when log-normality does not hold.
+
 ** 10.4 Properties of the Black-Scholes Formula
+
+*** Result $S_t \to \infty$
+
+As $S_t \to \infty$, $\Phi(d_1) \to 1$ and $\Phi(d_2) \to 1$, since $\log(\frac{S_t}{K}) \to \infty$.
+
+Therefore, as $S_t \to \infty$,
+$C_K(t, T) \to S_t - Ke^{-r(T - t)}$, the value of a forward contract
+
+This makes sense, as $S_t \to \infty$ we are certain to exercise the
+call option, and thus the option price tends to the value of being
+long a forward contract.
+
+*** Result $\sigma \to 0$
+
+As $\sigma \to 0$, $d_1 \to \pm \infty$
+
+$+ \infty$ if $\log(S_t/K) + r(T - t) > 0$
+$- \infty$ if $\log(S_t/K) + r(T - t) < 0$
+
+The same result holds for $d_2$.
+
+Therefore,
+
+$C_K(t, T) \to S_t - Ke^{-r(T - t)}$ if $S_t > Ke^{-r(T - t)}$ and 0 ow
+
+As the volatility of the stock tends to 0, the stock price becomes
+deterministic, equivalent to a holding of cash invested at rate
+$r$. If the stock is in the money forward, then the call option
+becomes equivalent to a long forward contract.
+
+*** Result $\sigma \to 0$, $\Phi(d_1) \to 1$, $\Phi(d_2) \to 0$, thus $C_K(t, T) \to S_t$
+
+*** Result (Straddle Price)
+
+Using a Taylor series expansion for the normal cumulative distribution
+function $\Phi(.)$, we find that the straddle price is approximated by:
+
+$s_t \sigma \sqrt{T - t} \sqrt{\frac{2}{\pi}}(1 - \frac{\sigma^2 (T - t)}{24})$ + higher order terms
+
+* 10.5 Delta and Vega
