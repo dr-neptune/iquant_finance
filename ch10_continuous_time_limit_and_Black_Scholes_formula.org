@@ -1,1 +1,117 @@
 #+TITLE: Chapter 10: Continuous-time Limit and the Black-Scholes Formula
+
+In this chapter, we develop a framework that allows us to appeal to
+the central limit theorem and take the limit of the binomial tree as
+step sizes become smaller.
+
+* 10.1 Lognormal Limit
+
+Define the *logarithmic return* as
+
+$\lambda_n = \log{(\frac{S_n}{S_{n - 1}})}$
+
+Let $S_T$ be the stock price at a fixed maturity $T$ and suppose there
+are $N$ steps on the binomial tree of size $\Delta T$, with $T = N
+\Delta T$.
+
+Then $Y_T = \log{(\frac{S_T}{S_0})}$ and let
+$E(Y_T) = \mu T$ and
+$Var(Y_T) = \sigma^2 T$ for some $\mu, \sigma$
+
+We will take limits under the constraint that the mean and variance of
+$Y_T$ will stay fixed as we increase the number of time steps $N$.
+
+Then (see the book to fill in the blanks)
+
+$Y_T = \lambda_N + \lambda_{N + 1} + ... + \lambda_1$
+
+where $\lambda_i \sim \mathcal{N}(\mu \Delta T, \sigma^2 \Delta T)$
+
+Given $\lambda_i$ is a R.V. with only 2 possible values, we can write
+
+$\log{S_{N \Delta T}} = \log{S_{(N - 1)\Delta T}} + \mu \Delta T + \sigma \sqrt{\Delta T} \xi$
+
+where $\xi = \pm 1$ with probability 1/2.
+
+Therefore
+
+$\log S_T = \log S_0 + \mu T + \sigma \sqrt{T} \frac{1}{\sqrt{N}} \Sigma\limits_{i = 1}^N \xi_{i}$
+
+Letting $N \to \infty$, the central limit theorem gives
+
+$\log S_T = \log S_0 + \mu T + \sigma \sqrt{T}W$ where $W \sim \mathcal{N}(0, 1)$
+
+The term $\sigma$ is called the *volatility* of the stock.
+
+We can alternatively write
+
+$S_T = S_0 e^{\mu T + \sigma \sqrt{T}W}$
+
+and we have
+
+$E(S_T | S_0) = S_0 e^{\mu T + \frac{1}{2} \sigma^2 T}$
+
+* 10.2 Risk-Neutral Limit
+
+On the binomial tree with time steps of length $\Delta T$, the risk-neutral probability is given by
+
+$p^* = \frac{r \Delta T - d}{u - d}$
+
+where $r$ is the constant interest rate for the term of the step.
+
+So for small $\Delta T$ we can taylor expand:
+
+$1 + u = e^{\mu \Delta T + \sigma \sqrt{\Delta T}} = 1 + \mu \Delta T + \sigma \sqrt{\Delta T} + \frac{\sigma^2}{2} \Delta T + O(\Delta T^{3/2})$
+
+Similarly, we have
+
+$1 + d = 1 + \mu \Delta T - \sigma \sqrt{\Delta T} + \frac{\sigma^2}{2} \Delta T + O(\Delta T^{3/2})$
+
+Then we can plug the above expressions into our risk-neutral probability and obtain
+
+$p^* = \frac{1}{2} + \frac{1}{2}(\frac{r - \mu - \frac{\sigma^2}{2}}{\sigma}) \sqrt{\Delta T} + O(\Delta T)$
+
+Then we can use our risk-neutral probability $p^*$ as an input to our argument in the previous section.
+Instead of moving up and down with p = 1/2, we have $\xi_i^* = +1$ with probability $p^*$ and $\xi_i^* = -1$ with probability $1 - p^*$
+
+Following the same steps as the previous section, the book derives
+
+$\log S_T = \log S_0 + (r - \frac{1}{2} \sigma^2)T + \sigma \sqrt{T}W$ where $W \sim \mathcal{N}(0, 1)$
+
+That is, under risk-neutral probability, $S_T$ is lognormally distributed with
+
+$E_*(\log S_T | S_0) = \log S_0 + (r - \frac{1}{2}\sigma^2)T$
+
+$\mathrm{Var}_* (\log S_T | S_0) = \sigma^2 T$
+
+The actual expectation $\mu$ does not appear in the risk-neutral distribution.
+
+Note that the risk-neutral expectation for log $S_T$ differs from the expectation under the actual probabilities, but its volatility is the same.
+
+Under the risk-neutral lognormal limit
+
+$E_*(S_T | S_0) = S_0 e^{rT}$
+
+The choice of current time $t$ (above set to be 0) is unimportant and we have the general result that
+
+$\log S_T | S_t \sim \mathcal{N}(\log S_t + (r - \frac{1}{2} \sigma^2)(T - t), \sigma^2 (T - t))$
+
+* 10.3 Black-Scholes Formula
+
+** Result: Black-Scholes Formula
+
+$C_K(t, T) = S_t \Phi(d_1) - KZ(t, T) \Phi(d_2)$
+
+where
+
+$d_1 = \frac{\log{(\frac{S_t}{K})} + (r + 1/2 \sigma^2)(T - t)}{\sigma \sqrt{T - t}}$
+
+and
+
+$d_2 = d_1 - \sigma \sqrt{T - t}$
+
+
+#+DOWNLOADED: screenshot @ 2022-08-16 08:36:06
+[[file:10.3_Black-Scholes_Formula/2022-08-16_08-36-06_screenshot.png]]
+
+** 10.4 Properties of the Black-Scholes Formula
