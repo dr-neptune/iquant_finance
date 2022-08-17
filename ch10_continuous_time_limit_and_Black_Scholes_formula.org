@@ -163,3 +163,55 @@ function $\Phi(.)$, we find that the straddle price is approximated by:
 $s_t \sigma \sqrt{T - t} \sqrt{\frac{2}{\pi}}(1 - \frac{\sigma^2 (T - t)}{24})$ + higher order terms
 
 * 10.5 Delta and Vega
+
+The *delta* of an option is the partial derivative of its price with
+respect to the underlying asset price. It measures how much the option
+price changes for small changes in the stock price.
+
+$C_K(t, T, S_t + \Delta S_t) \approx C_K(t, T, S_t) + \Delta S_t \frac{\delta C_K(t, T, S_t)}{\delta S_t}$
+
+Under the Black-Scholes formula:
+
+$\frac{\delta C_K(t, T, S_t)}{\delta S_t} = \Phi(d_1)$
+
+Since $\Phi$ is the CDF function, the Black Scholes delta must be in $[0, 1]$
+
+The *vega* (sometimes called kappa) of an option is the partial
+derivative of its price with respect to volatility $\sigma$, and
+measures the exposure of an option or other derivative contract price
+to movements in volatility.
+
+For a call option under the Black-Scholes formula, its vega is
+
+$\frac{\delta C_K(t, T)}{\delta \sigma} = S_t \sqrt{T - t} \phi(d_1) > 0$
+
+where $\phi \sim \mathcal{N}(0, 1)$
+
+Using a Taylor series expansion, we find that the vega of an at the
+money forward straddle is:
+
+$S_t \sqrt{\frac{2}{\pi}}(1 - \frac{\sigma^2}{8})$
+
+Vega will be positive if the underlying asset is positively correlated
+with interest rates. If we want volatility to go up, we say that we
+are "long vega".
+
+The vega of a put always equals the vega of a call of the same strike
+and maturity.
+
+* 10.6 Incorporating Random Interest Rates
+
+We can write the Black-Scholes formula in the form
+
+$C_K(t, T) = Z(t, T)(F(t, T)\Phi(d1)) - K \Phi(d_2)$
+
+where $F(t, T) = \frac{S_t}{Z(t, T)}$
+
+If we work solely with the forward price, and assume that the
+risk-neutral distribution for $F(t, T$$$$)$ is given by
+
+$F(T, T) \sim \mathrm{lognormal}(\log (F(t, T)) - \frac{1}{2} \sigma^2 (T - t), \sigma^2(T - t))$
+
+then we obtain the Black-Scholes equation again while incorporating
+random interest rates. The key difference is that $\sigma$ now
+represents the volatility of the forward price, not the stock price.
