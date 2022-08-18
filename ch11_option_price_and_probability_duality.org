@@ -1,0 +1,106 @@
+#+TITLE: Chapter 11: Option Price and Probability Duality
+
+Here we derive the result that option prices determine entirely the risk-neutral distribution of $S_T$
+
+* 11.1 Digitals and the Cumulative Distribution Function
+
+** Result Price of a Digital Call Option
+
+The price at time t of the digital call option struck at $K$ equals
+
+$\lim\limits_{\lambda \to \infty} \lambda (C_K(t, T) - C_{K + \frac{1}{\lambda}}(t, T)) = - \frac{\delta C_K(t, T)}{\delta K}$
+
+** Result Price of a Digital Call Option Using the Fundamental Theorem
+
+Defining the payout at T of the digital call option to be
+
+$D_K(T, T) = I\{S_T > K\}$
+
+then by the fundamental theorem, $D_K(t, T)$, its price at time t, satisfies
+
+$\frac{D_K(t, T)}{Z(t, T)} = E_*(\frac{D_K(T, T)}{Z(T, T)}) = E_*(I\{S_T > K\})) = P^*(S_T > K | S_T)$
+
+The price of a digital option is thus simply the present value of the
+probability of receiving a payout, namely the stock price being above
+K at T.
+
+Combining our results, we obtain
+
+$P^*(S_T \leq K | S_t) = 1 + \frac{1}{Z(t, T)} \frac{\delta C_K(t, T)}{\delta K}$
+
+For the Black-Scholes models, we obtain the result
+
+$-\frac{\delta C_K(t, T)}{\delta K} = Z(t, T) \Phi(d_2)$
+
+* 11.2 Butterflies and Risk-Neutral Density
+
+
+#+DOWNLOADED: screenshot @ 2022-08-18 08:08:13
+[[file:11.2_Butterflies_and_Risk-Neutral_Density/2022-08-18_08-08-13_screenshot.png]]
+
+
+#+DOWNLOADED: screenshot @ 2022-08-18 08:07:48
+[[file:11.2_Butterflies_and_Risk-Neutral_Density/2022-08-18_08-07-48_screenshot.png]]
+
+For small $\frac{1}{\lambda}$
+
+ $B_{K, \lambda}(t, T) = \frac{1}{\lambda} Z(t, T) f_{S_T|S_t}(x)$
+
+The butterfly price equals the probability density times the
+half-width of the small triangle, either side of $K = x$, or
+equivalently, the probability of $S_T$ being in the interval $K \pm
+1/\lambda$ multiplied by $Z(t, T)$.
+
+By trading butterflies we are trading probability, in particular the
+risk-neutral probabilities of possible states of the random variable
+$S_T$.
+
+If a trader's assessment of the actual probability of a possible state
+of the world differs significantly from the risk-neutral probability
+of that state implied by option prices, a trade opportunity arises.
+
+* 11.3 Calls as Spanning Set
+
+We can move from risk-neutral probabilities to call prices via the
+fundamental theorem by:
+
+$C_K(t, T) = Z(t, T)E_*((S_T - K)^+ | S_t)$
+
+and we can move from call prices to the risk-neutral density via
+
+$f_{S_T|S_t}(x) = \frac{1}{Z(t, T)}\frac{\delta^2 C_K(t, T)}{\delta K^2}$
+
+Thus we have an elegant duality between the set of call prices with
+maturity $T$ and the risk-neutral distribution of $S_T$.
+
+The notion of calls as a spanning set can be seen as such:
+
+Any option payout at time T can be replicated by a linear combination
+of the ZCB, the stock and calls with strikes $K > 0$. We know that we
+must be able to perform this replication since we are able to move
+from call prices to the price of an arbitrary derivative contract with
+payout $g(S_T)$ by the route:
+
+call prices $\to$ risk-neutral density $\to$ $E_*(g(S_T))$
+
+* 11.4 Implied Volatility
+
+The Black-Scholes formula is a one to one function between volatility
+and call price. In particular, given the observed call option price
+$C_K(t, T)$, one can determine the volatility $\sigma_K$ that would
+give this price when entered into the Black-Scholes formula. This is
+known as *implied volatility*.
+
+Different implied volatilities for different strikes are a
+manifestation that the risk-neutral distribution for $S_T$ is not
+lognormal. If it were lognormal, one volatility would determine option
+prices for all strikes.
+
+Practitioners use implied volatilities as an efficient way to capture
+option prices and hence the risk-neutral distribution via
+
+$\{\sigma_K ; K > 0\} \iff \{C_K(t, T); K > 0\} \iff$ risk-neutral distribution
+
+The term *volatility skew* is used to describe the phenomenon that
+$\sigma_K$ is not constant for all $K$, and hence that the
+risk-neutral distribution is not lognormal.
