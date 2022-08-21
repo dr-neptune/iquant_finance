@@ -1,0 +1,113 @@
+#+TITLE: Chapter 13: Cancellable Swaps and Bermudan Swaptions
+
+Cancellable swaps can be European style with just one cancellation
+date, Bermudan style with multiple cancellation dates, or American
+style with continuous cancellation dates (which in practice usually
+means daily).
+
+* 13.1 European Cancellable Swaps
+
+#+DOWNLOADED: screenshot @ 2022-08-21 16:16:24
+[[file:13.1_European_Cancellable_Swaps/2022-08-21_16-16-24_screenshot.png]]
+
+As a reminder:
+
+#+begin_quote
+A *payer swaption*, struck at K with expiry T on a swap from $T \to
+T_n$,
+is the option to pay fixed K and receive libor on the swap.
+#+end_quote
+
+#+begin_quote
+A *receiver swaption* struct at K is the option to receive fixed K and
+pay libor on the swap.
+#+end_quote
+
+Is there a value of $K^*$ of $K$ for which the cancellable swap has 0
+value at T?  In the case of spot-starting swaps where $T = 0$, we call
+$K^*$ the $T_n$ *noncall $T_j$ (European Cancellable) swap rate*,
+"noncall" indicating it is not cancellable under $T_j$.
+
+* 13.2 Callable Bonds
+
+Corporations issuing fixed rate debt often use swaps to exchange the
+fixed rate payments they are making on the bond for floating libor
+payments. By swapping a fixed rate bond, the corporation ends up
+paying an interest cost of libor plus or minus a spread.
+
+
+#+DOWNLOADED: screenshot @ 2022-08-21 16:27:07
+[[file:13.2_Callable_Bonds/2022-08-21_16-27-07_screenshot.png]]
+
+
+The company may alternatively issue a callable bond, which they have
+the option to buy back (or "call") from the investor at 100% of the
+notional (or "par") at a fixed time $T_j$ before maturity. In a
+similar manner to above, the company often will exchange these fixed
+payments for libor payments using a cancellable swap.
+
+
+#+DOWNLOADED: screenshot @ 2022-08-21 16:28:41
+[[file:13.2_Callable_Bonds/2022-08-21_16-28-41_screenshot.png]]
+
+Why would a company issue a callable bond as opposed to a regular
+bond? It essentially allows them to have the option to pre-pay off the
+bond without getting locked in to a high interest rate for a long
+period of time. Something like refinancing.
+
+* 13.3 Bermudan Swaptions
+
+A *$T_0$ into $T_n - T_0$ Bermudan payer swaption* is the option at each $T_i$ to pay $K$ and receive libor from $T_i$ to $T_n$ for $i = 0, ..., n - 1$. If the swaption is not exercised at $T_i$, then the option continues. Once the option is exercised at a particular $T_i$, all subsequent options disappear. That is, there are many exercise dates but only one option.
+
+
+#+DOWNLOADED: screenshot @ 2022-08-21 17:34:17
+[[file:13.3_Bermudan_Swaptions/2022-08-21_17-34-17_screenshot.png]]
+
+** Result
+
+$C_K(t, T_0, T_n) \geq B_K(t, T_0, T_n) \geq \max\limits_{0 \leq i \leq n - 1} \Psi_K(t, T_i, T_n)$
+
+where:
+- $\Psi_K(t, T_j, T_n)$ is the price at time $t$ of the K-strike
+  European payer swaption, with exercise date $T_j$ on swap from $T_i
+  \to T_n$
+- $B_K(t, T_0, T_n)$ is the price at time t of the K-strike Bermudan
+  payer swaption, with first exercise date $T_0$ on a swap ending at
+  $T_n$.
+- $C_K(t, T_0, T_n)$ is the price at time t of the $T_0$ by $T_n$ K-strike cap
+
+This shows that the Bermudan payer swaption can in some sense be
+considered as the intermediate option between the European payer
+swaption and the cap.
+
+* 13.4 Bermudan Swaption Exercise Criteria
+
+** Result
+
+Do not exercise if $y_{T_i} < K$
+
+** Result
+
+We know that $B_K(T_i, T_{i + 1}, T_n) \geq \max\limits_{i + 1 \leq j \leq n - 1} \Psi_K(T_i, T_j, T_n)$
+
+Therefore, do not exercise if
+
+$(y_{T_i}[T_i, T_n] - K)P_{T_i}[T_i, T_n] \leq \max\limits_{i + 1 \leq j \leq n - 1} \Psi_K(T_i, T_j, T_n)$
+
+That is, we do not exercise if the intrinsic value (the value of the
+underlying swap) is less than the most valuable of the subsequent
+European swaptions.
+
+** Result
+
+Do not exercise the Bermudan payer at $T_i$ if
+
+$y_{T_i}[T_i, T_j] < K$ for any $i + 1 \leq j \leq n$
+
+* 13.5 Bermudan Cancellable Swaps and Callable Bonds
+
+Suppose one pays fixed $K$ and receives libor from $T_0$ to $T_n$, with rights to cancel at $T_i$, $i = j, ..., n - 1$. For spot-starting swaps where $T_0 = 0$, we call this a $T_n$ *noncall $T_j$ Bermudan cancellable swap*.
+
+Bermudan callable bonds are particularly attractive to investors since they typically have a higher coupon than European callable or noncallable bonds.
+
+A *mortgage* is another type of callable bond central to the financial system. A mortgage can to an approximation be considered a purchase of a callable bond by the lender from the homeowner. The homeowner owns a Bermudan option embedded in their mortgage, namely the right to prepay the mortgage, or equivalently owns the right to "call" the bond back from the lender at par. Given the homeowner is paying a fixed rate on the mortgage, their option to prepay (or cancel) such an agreement is equivalent to a Bermudan receiver swaption.
