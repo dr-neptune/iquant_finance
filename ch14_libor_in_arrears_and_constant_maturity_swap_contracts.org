@@ -1,1 +1,54 @@
 #+TITLE: Chapter 14: Libor-in-arrears and Constant Maturity Swap Contracts
+
+Libor-in-arrears is one of the simplest methods of the universe of
+*exotic*, or non-standard, interest rate derivatives.
+
+* 14.1 Libor-in-arrears
+
+A *libor-in-arrears* or *arrears FRA* has identical cashflows as a regular
+FRA and references the same libor, but the cashflows are made at time
+$T$ and not at $T + \alpha$.
+
+Precisely the payout of a libor-in-arrears FRA at time T is
+
+$\alpha (L_T - K)$
+
+The *forward libor-in-arrears rate* $\tilde{L_t}[T, T + \alpha]$,
+abbreviated $\tilde{L_{tT}}$ is defined to be the value of $K$ that
+makes the arrears FRA have 0 value at time $t \leq T$.
+
+In general $\tilde{L_{tT}} \neq L_{tT}$
+
+* 14.2 Libor-in-arrears Convexity Correction
+
+The arrears FRA has payout
+
+$D_K(T, T) = \alpha (L_T - K)$ at time $T$
+
+and thus value
+
+$\alpha (L_T - K) + \alpha^2(L_T^2 - KL_T)$ at time $T + \alpha$
+
+* Result (Value of a Libor-in-arrears payment at time T)
+
+Using the fundamental theorem with $Z(t, T + \alpha)$ numeraire, we
+obtain the value at time $t$ of a libor-in-arrears payment $\alpha
+L_T$ at time $T$ is
+
+$Z(t, T + \alpha) E_*(\alpha L_T(1 + \alpha L_T)) = Z(t, T + \alpha)\alpha L_{tT} + \int_0^\infty 2 \alpha C_K(t, T)dK$
+
+A regular libor term, plus a positive convexity correction which is a
+function of caplet prices. In particular, receiving a libor-in-arrears
+payment will have positive vega.
+
+
+#+DOWNLOADED: screenshot @ 2022-08-22 06:39:02
+[[file:Result_(Value_of_a_Libor-in-arrears_payment_at_time_T)/2022-08-22_06-39-02_screenshot.png]]
+
+Receiving a floating interest rate earlier than its contracted term is
+preferable, meaning we would pay higher than the regular forward rate
+to do so, and such a contract has positive vega. By contrast,
+receiving a rate later than its term is not-preferable, and have
+negative vega.
+
+* 14.3 Classic Libor-in-arrears trade
