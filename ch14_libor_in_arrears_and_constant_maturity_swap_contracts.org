@@ -6,7 +6,7 @@ Libor-in-arrears is one of the simplest methods of the universe of
 * 14.1 Libor-in-arrears
 
 A *libor-in-arrears* or *arrears FRA* has identical cashflows as a regular
-FRA and references the same libor, but the cashflows are made at time
+Forward-Rate Agreement and references the same libor, but the cashflows are made at time
 $T$ and not at $T + \alpha$.
 
 Precisely the payout of a libor-in-arrears FRA at time T is
@@ -39,7 +39,9 @@ $Z(t, T + \alpha) E_*(\alpha L_T(1 + \alpha L_T)) = Z(t, T + \alpha)\alpha L_{tT
 
 A regular libor term, plus a positive convexity correction which is a
 function of caplet prices. In particular, receiving a libor-in-arrears
-payment will have positive vega.
+payment will have positive vega (where vega is the partial derivative
+of an options price w.r.t it's volatility and measaures the exposure
+of an option's price to movements in volatility).
 
 
 #+DOWNLOADED: screenshot @ 2022-08-22 06:39:02
@@ -48,7 +50,43 @@ payment will have positive vega.
 Receiving a floating interest rate earlier than its contracted term is
 preferable, meaning we would pay higher than the regular forward rate
 to do so, and such a contract has positive vega. By contrast,
-receiving a rate later than its term is not-preferable, and have
+receiving a rate later than its term is not-preferable, and has
 negative vega.
 
 * 14.3 Classic Libor-in-arrears trade
+
+An example in the book where Bank A lumps all the cashflows of 2 zero
+cost deals together at one time point, then because of the convexity
+correction Bank B (who set up the deal) made 4 basis points on the
+trade.
+
+The trade hid the subtlety of the libor-in-arrears convexity
+correction within a simple yield curve trade. The complexity was
+injected simply when the time of the payment of the second forward
+rate agreement was moved from $T_3 \to T_2$
+
+* 14.4 Constant Maturity Swap Contracts
+
+*Constant Maturity Swap* (CMS) contracts use the libor-in-arrears
+convexity correction for the swap rate (rather than the libor rate)
+being paid early.
+
+Libor-in-arrears payments trade infrequently, but CMS contracts are
+widely traded.
+
+The simplest *CMS contract* is defined where one
+
+- pays $K$ and
+- receives $y_T[T, T_n]$
+
+at a single time $T$.
+
+Since $y_T[T, T_n]$ is by definition the fixed rate such that the
+value of a swap from $T \to T_n$ has 0 value, in a CMS contract we are
+receiving the swap rate earlier than its contracted term (at $T$
+instead of $T_i, i = 1, ..., n$).
+
+Thus the *CMS rate* $\tilde{y_t}[T, T_n]$, the value of $k$ s.t. the CMS
+contract has 0 value at time $t$, is greater than $y_t[T, T_n]$, the
+forward swap rate. The difference $\tilde{y_t}[T, T_n] - y_t[T, T_n]$
+is called the *CMS convexity correction*.
