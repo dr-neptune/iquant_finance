@@ -1,1 +1,62 @@
 #+TITLE: Chapter 15: The Brace-Gatarek-Musiela Framework
+
+This chapter looks at the Brace-Gatarek-Musiela (BGM) model, which
+provides a framework for the consistent valuation of a range of
+interest rate options.
+
+* 15.1 BGM Volatility Surface
+
+The risk-neutral distribution for $L_T$ (the libor forward rate for
+period $[T, T + \alpha]$) under the forward numeraire $Z(t, T + \alpha)$
+is given by:
+
+$L_T|L_{tT} \sim \mathrm{lognormal}(\log L_{tT} - \frac{1}{2}\sigma^2(T - t), \sigma^2(T - t))$
+
+where $\sigma^2(T - t) = \int_t^T \sigma^2(u, T)du$
+
+For fixed T, the function $\sigma(t, T), 0 \leq t \leq T$ represents
+the instantaneous volatility from $t \to t + \Delta t$ of the forward
+libor $L_{tT}$.
+
+The surface $\{\sigma(t, T), 0 \leq t \leq T \leq \infty\}$ is known
+as the *BGM volatility surface*, after the Brace-Gatarek-Musiela model,
+which first explicitly described the evolution of libor rates in terms
+of their individual volatilities.
+
+* 15.2 Option Price Dependence on BGM Volatility Surface
+
+The price of a caplet on $L_{T_i}[T_i, T_{i + 1}]$, where $T_{i + 1} =
+T_i + \alpha$, depends on the volatilities $\{\sigma(t, T); T_i \leq T
+\leq T_{j - 1}\}$
+
+A $T_i$ by $T_j$ cap price depends on the volatilities in a trapezium
+
+$\{\sigma(t, T); T_i \leq T \leq T_{j - 1}, 0 \leq t \leq T}$
+
+The volatility, and thus the price, of a swaption depends on a rectangle of the volatility surface
+
+$\{\sigma(t, T); 0 \leq t \leq T_0, T_0 \leq T \leq T_{n - 1}\}$
+
+
+#+DOWNLOADED: screenshot @ 2022-08-25 07:54:46
+[[file:15.2_Option_Price_Dependence_on_BGM_Volatility_Surface/2022-08-25_07-54-46_screenshot.png]]
+
+Volatility trading in practice involves understanding the dependences
+of particular derivative products on the BGM volatility
+surface. Different derivatives can have inter-related dependences,
+which allow assessments of relative value.
+
+A typical implementation of BGM often involves assuming a relatively
+simple function for the correlation structure, then proposing
+functional forms for $\sigma(t, T)$. A nonlinear calibration follows
+to obtain the best parametric fit of $\sigma(t, T)$ to market option
+prices. One can also perturb the smooth surface to obtain an exact
+nonparametric fit to market prices.
+
+
+#+DOWNLOADED: screenshot @ 2022-08-25 08:04:38
+[[file:15.2_Option_Price_Dependence_on_BGM_Volatility_Surface/2022-08-25_08-04-38_screenshot.png]]
+
+
+#+DOWNLOADED: screenshot @ 2022-08-25 08:04:45
+[[file:15.2_Option_Price_Dependence_on_BGM_Volatility_Surface/2022-08-25_08-04-45_screenshot.png]]
