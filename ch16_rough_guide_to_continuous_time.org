@@ -1,1 +1,130 @@
 #+TITLE: Chapter 16: Rough Guide to Continuous Time
+
+This chapter briefly introduces Brownian motion as the limit of the
+binomial tree, shows how we can use Ito's lemma to tackle the change
+of numeraire and risk-neutral distributions in continuous time,
+arriving at the Black-Scholes formula.
+
+* 16.1 Brownian Motion as Random Walk Limit
+
+Let $\xi_i$ be IID and equal to $\pm 1$ with probability 1/2 and consider the symmetric random walk $\Sigma_{i=1}^N \xi_i$
+
+By the central limit theorem
+
+$W_N = \Sigma_{i = 1}^N \frac{1}{\sqrt{N}} \to W$ as $N \to \infty$, where $W \sim \mathcal{N}(0, 1)$
+
+For fixed $t>0$, we can define:
+
+$W_{N,t} = \Sigma_{i = 1}^{[Nt]} \frac{1}{\sqrt{N}} = \sqrt{t}\Sigma_{i=1}^{[Nt]}\frac{1}{\sqrt{Nt}}\xi_i$
+
+where $[Nt]$ is the closest integer to $Nt$. Then
+
+$W_{N, t} \to W_t \sim \mathcal{N}(0, t)$ as $N \to \infty$
+
+The limit $W_t$, the continuous-time limit of a symmetric random walk,
+is called *Brownian Motion* or a *Wiener Process*.  It has the following
+properties:
+
+a. $W_0 = 0$
+b. For all $t \leq s$, $W_s - W_t \sim \mathcal{N}(0, s - t)$
+c. $W_s - W_t$ is independent of $W_t, t \leq s$
+
+Intuitively, we can understand Brownian motion as the limit of the
+symmetric random walk with ever smaller time steps.  Equivalently, we
+can think of it as a process with independent normal increments, since
+for any $t, \Delta t > 0$
+
+$W_{t + \Delta t} - W_t \sim \mathcal{N}(0, \Delta t)$
+
+Note that Brownian motion is a Martingale.
+
+* 16.2 Stochastic Differential Equations and Geometric Brownian Motion
+
+For $\Delta t > 0$, we can write a difference equation such as
+
+$S_{t + \Delta t} - S_t = \mu \Delta t + \sigma (W_{t + \Delta t} - W_t) = \mu \Delta t + \sigma \sqrt{\Delta t} W$, $W \sim \mathcal{N}(0, 1)$
+
+We write the limits as $\Delta t \to 0$:
+
+$dS_t = \mu dt + \sigma d W_t$
+
+or more generally
+
+$dS_t = \mu(S_t, t)dt + \sigma(S_t, t) d W_t$
+
+This is a *stochastic differential equation*.
+
+The meaning of $dW_t$ is non-trivial, although the discrete analogue
+$\sqrt{\Delta t}W$ where $W \sim \mathcal{N}(0, 1)$ is helpful for
+conceptual understanding.
+
+A reasonable choice of functions $\mu(S_t, t), \sigma(S_t, t)$ to model the behavior of a stock price is to:
+
+- assume that the drift $\mu$ of a stock is proportional to its price, $\mu(S_t, t) = \mu S_t$
+  - with no random term, the ODE would be $dS_t = \mu S_tdt \implies S_t = S_0e^{\mu t}$
+
+- For $\sigma(S_t, t)$, we might assume that the uncertainty about the stock's percentage return is constant
+
+  - i.e. $p(S_t) = 100 \to \not \in (99, 101) \equiv p(S_t) = 50 \to \not \in (49.5, 50.5)$
+
+  - Then over small $\Delta t$, $\mathrm{Var}(\frac{\Delta S_t}{S_t}) \approx \sigma^2 \Delta t \implies \mathrm{Var}(\Delta S_t) \approx \sigma^2 S_t^2 \Delta t$
+
+Therefore, one possible process for the evolution of the stock is
+
+$dS_t = \mu S_t dt + \sigma S_t d W_t$
+
+which is the definition that the stock follows *geometric Brownian motion*.
+
+The discrete time analogue is
+
+$\frac{\Delta S_t}{S_t} = \mu \Delta t + \sigma \sqrt{\Delta t} W$ where $W \sim \mathcal{N}(0, 1)$
+
+* 16.3 Ito's Lemma
+
+Consider a function $f(X_t, t)$ of $X_t$.
+
+For non-random $X_t$
+
+$df = \frac{\delta f}{\delta t}dt + \frac{\delta f}{\delta X_t} dX_t$
+
+by the chain rule for differentiation. Now suppose that
+
+$\Delta X_t = \mu \Delta t + \sigma \sqrt{\Delta t} W$, $W \sim \mathcal{N}(0, 1)$
+
+Then
+
+$(\Delta X_t)^2 = \sigma^2 \Delta t W^2 + O(\Delta t^{\frac{3}{2}})$
+
+Since $E(W^2) = 1$ and $\mathrm{Var}(W^2) = 2$, then $(\Delta X_t)^2 \to \sigma^2 \Delta t$ as $\Delta t \to 0$ and we have
+
+$\Delta f \approx \frac{\delta f}{\delta t}\Delta t + \frac{\delta f}{\delta X_t}\Delta X_t + \frac{1}{2} \frac{\delta^2 f}{\delta^2 X_t^2} \sigma^2 \Delta t$
+
+Taking limits we obtain *Ito's Lemma*:
+
+If $dx = \mu dt + \sigma dW_t$, then
+
+$df = \frac{df}{dt}dt + \frac{df}{dx}dx + \frac{1}{2}\frac{d^2f}{dx^2} dx^2$
+
+where $dx^2$ is defined by the identities $dt^2 = 0, dtdW_t = 0, (dW_t)^2 = dt$
+
+Applying Ito's lemma to $\log S_t$ where $S_t$ follows geometric Brownian motion:
+
+Let $f(S_t) = \log S_t$. Then
+
+$\frac{\partial f}{\partial t} = 0$
+
+$\frac{\partial f}{\partial S_t} = \frac{1}{S_t}$
+
+$\frac{\partial^2f}{\partial S_t^2} = -\frac{1}{S_t^2}$
+
+Ito's lemma gives
+
+$d(\log S_t) = (\frac{1}{S_t}\mu S_t - \frac{1}{2} \sigma^2 S_t^2 \frac{1}{S_t^2}) dt + \sigma S_t \frac{1}{S_t}d W_t = (\mu - \frac{1}{2}\sigma^2)dt + \sigma dW_t$
+
+Therefore, $\log S_t$ follows standard Brownian motion and is normally distributed. Specifically,
+
+$\log S_T | S_t \sim \mathcal{N}(\log S_t + (\mu - \frac{1}{2}\sigma^2)(T - t), \sigma^2(T - t))$
+
+showing that under geometric Brownian motion the distribution of $\log
+S_T | S_t$
+is lognormal, equal to the limiting distribution of the binomial tree.
