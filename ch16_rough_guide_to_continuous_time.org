@@ -103,6 +103,11 @@ Taking limits we obtain *Ito's Lemma*:
 
 If $dx = \mu dt + \sigma dW_t$, then
 
+$df = \frac{df}{dt}dt + \frac{df}{dx}dx + \frac{1}{2}\frac{d^2f}{dx^2} dx^2 = (\frac{\partial f}{\partial t} + \frac{\partial f}{\partial X_t} \mu(X_t, t) + \frac{1}{2} \frac{\partial^2 f}{\partial X_t^2} \sigma^2(X_t, t))dt + \frac{\partial f}{\partial x_t} \sigma(X_t, t) dW_t$
+
+
+Ito's Lemma is easiest to remember in the following form: If $dx = \mu dt + \sigma d W_t$ then
+
 $df = \frac{df}{dt}dt + \frac{df}{dx}dx + \frac{1}{2}\frac{d^2f}{dx^2} dx^2$
 
 where $dx^2$ is defined by the identities $dt^2 = 0, dtdW_t = 0, (dW_t)^2 = dt$
@@ -128,3 +133,5 @@ $\log S_T | S_t \sim \mathcal{N}(\log S_t + (\mu - \frac{1}{2}\sigma^2)(T - t), 
 showing that under geometric Brownian motion the distribution of $\log
 S_T | S_t$
 is lognormal, equal to the limiting distribution of the binomial tree.
+
+* 16.4 Black-Scholes Equation
