@@ -135,3 +135,37 @@ S_T | S_t$
 is lognormal, equal to the limiting distribution of the binomial tree.
 
 * 16.4 Black-Scholes Equation
+
+Now let our function be the price of a call (or other derivative)
+$C_K(t, T)$, which is a function of the underlying stock price. If the
+stock follows geometric Brownian motion, then by Ito's lemma, the
+option price satisfies the stochastic differential equation:
+
+$dC_K(t, T) = (\frac{\partial C_K(t, T)}{\partial t} + \frac{\partial C_K(t, T)}{\partial S_T} \mu S_t + \frac{1}{2}\frac{\partial^2 C_K(t, T)}{\partial S_t^2} \sigma^2 S_t^2)dt + \frac{\partial C_K(t, T)}{\partial S_t}\sigma S_t dW_t$
+
+Suppose we construct at t a portfolio $\Pi$ consisting of long one
+option and short $\frac{\partial C_K(t, T)}{\partial S_t}$ of
+stock. Its price $\Pi_t$ at time t satisfies
+
+$\Pi_t = C_K(t, T) - \frac{\partial C_K(t, T)}{\partial S_t}S_t$
+
+Using our expressions for $dC_K$ and $dS_t$, we obtain
+
+$d \Pi_t = (\frac{\partial}{\partial t}C_k(t, T) + \frac{1}{2}\frac{\partial^2 C_K(t, T)}{\partial S_t^2}\sigma^2 S_t^2) dt$
+
+This portfolio instantaneously at t has no exposure to the term
+$dW_t$. Therefore, it is instantaneously a replicating portfolio for
+the money market account and must grow at rate $r$. So
+
+$d \Pi_t = r \Pi_t dt \implies \frac{\partial}{\partial t}C_k(t, T) + \frac{1}{2}\frac{\partial^2 C_K(t, T)}{\partial S_t^2}\sigma^2 S_t^2 = r (C_K(t, T) - \frac{\partial C_K(t, T)}{\partial S_t}S_t)$
+
+Therefore, we obtain
+
+$\frac{\partial}{\partial t}C_k(t, T) + \frac{1}{2}\frac{\partial^2 C_K(t, T)}{\partial S_t^2}\sigma^2 S_t^2 -  r (C_K(t, T) + r \frac{\partial C_K(t, T)}{\partial S_t}S_t = 0$
+
+which is the *Black-Scholes partial differential equation* for a
+European derivative contract. The solution to this PDE, under the
+boundary conditions $C_K(T, T) = (S_T - K)^+$ is the Black-Scholes
+formula we derived probabilistically in chapter 10.
+
+* 16.5 Ito and Change of Numeraire
