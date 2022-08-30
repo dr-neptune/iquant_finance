@@ -169,3 +169,138 @@ boundary conditions $C_K(T, T) = (S_T - K)^+$ is the Black-Scholes
 formula we derived probabilistically in chapter 10.
 
 * 16.5 Ito and Change of Numeraire
+
+Consider two processes $X_t, Y_t$ s.t.
+
+$dX_t = \mu(X_t, t)dt + \sigma(X_t, t) dW_t$
+
+$dY_t = \mu(Y_t, t)dt + \sigma(Y_t, t) dW_t$
+
+Then $f(X_t, Y_t, t)$ satisfies the stochastic differential equation
+
+$df = \frac{\partial f}{\partial t}dt +
+\frac{\partial f}{\partial X_t}dX_t +
+\frac{\partial f}{\partial Y_t}dY_t +
+\frac{1}{2}\frac{\partial^2 f}{\partial X_t^2}dX_t^2 +
+\frac{\partial^2 f}{\partial X_tY_t}dX_tY_t +
+\frac{1}{2}\frac{\partial^2 f}{\partial Y_t^2}dY_t^2$
+
+setting $f(x, y) = xy$, we obtain
+
+$d(X_tY_t) = X_tdY_t + Y_tdX_t + dX_tdY_t$
+
+which is a useful result when considering the ratio of an asset to a numeraire.
+
+Suppose that $S_t$ follows geometric Brownian motion $dS_t = \mu S_t
+dt + \sigma S_t dW_t$.
+The money market account $M_t = e^{rt}$ satisfies $dM_t = rM_t dt$, and so
+
+$d(\frac{1}{M_t}) = -\frac{1}{M_t^2}dM_t = -\frac{r}{M_t}dt$
+
+We can now apply Ito's lemma to the ratio $S_t/M_t$:
+
+$d(\frac{S_t}{M_t}) = (\mu - r)\frac{S_t}{M_t} + \sigma \frac{S_t}{M_t} dW_t$
+
+Thus $S_t/M_t$ follows geometric Brownian motion, and we have
+
+$\log(\frac{S_t}{M_t} | S_t) \sim \mathcal{N}(\log(\frac{S_t}{M_t}) + (\mu - r)(T - t) - \frac{1}{2}\sigma^2(T - t), \sigma \sqrt{T - t})$
+
+As an example, let $f(S_t) = F(t, T) = S_t e^{r(T - t)}$, the forward
+price at time t. Then we have:
+
+$\frac{\partial f}{\partial t} = -rS_te^{r(T - t)}$ and $\frac{\partial f}{\partial S_t} = e^{r(T - t)}$
+
+and Ito's lemma gives us the following stochastic differential
+equation for the forward price:
+
+$dF(t, T) = (\mu - r)F(t, T)dt + \sigma F(t, T)dW_t$
+
+In the risk-neutral world, $\mu = r$ and we have
+
+$dF(t, T) = \sigma F(t, T)dW_t$
+
+Therefore,
+
+$\log F(T^*, T) | F(t, T) \sim \mathcal{N}(\log F(t, T) - \frac{1}{2}\sigma^2(T^* - t), \sigma^2(T^* - t))$
+
+and
+
+$E(F(T^*, T) | F(t, T)) = F(t, T)$
+
+for $t \leq T^* \leq T$. This shows that the forward price is a
+martingale under the risk-neutral distribution. This was shown
+earlier: we know from the fundamental theorem that we must have this
+result, since the forward price is itself the ratio of the stock to
+the ZCB.
+
+#+begin_quote
+We can begin to see the formation of a continuous-time analogue of our
+work on numeraires, martingales and the fundamental theorem.
+
+First we choose an appropriate numeraire, often chosen to simplify
+calculation.
+
+Given the stochastic differential equation for the underlying asset,
+we calculate using Ito’s lemma the stochastic differential equation
+for assets rebased by that numeraire.
+
+By the fundamental theorem, the absence of arbitrage is equivalent to
+the rebased assets being martingales, which is itself equivalent to
+the stochastic differential equation having zero drift.
+
+We can thus determine the risk-neutral distribution with respect to
+the numeraire by imposing this condition.
+#+end_quote
+
+Delightful
+
+There is another example in the book of a change of numeraire, in
+which he sets the stock price $S_t$ as the numeraire and calculates $d(\frac{M_t}{S_t})$
+
+The change of numeraire machinery above is a powerful tool in finance,
+and we can immediately apply it to the /Black-Scholes Formula/.
+
+We can split the payout $(S_T - K)^+ = (S_T - K) I\{S_T \geq K\}$ into
+2 parts:
+
+*A*. $S_T I\{S_T \geq K\}$
+*B*. $-KI\{S_T \geq K\}$
+
+To price *A*, let the price at time t be denoted $D^A(t, T)$ and the
+payout at time T be denoted $D^A(T, T) = S_T I\{S_T \geq K\}$. By
+the fundamental theorem:
+
+$\frac{D^A(t, T)}{S_t} = P^{**}(S_T \geq K | S_t)$
+
+where $P^{**}$ is the risk-neutral distribution with respect to the
+stock numeraire. Therefore,
+
+
+$D^A(t, T) = S_t P^{**}(S_T \geq K | S_t)$
+
+Under the risk-neutral distribution with respect to the stock
+numeraire, we set $\mu = r + \sigma^2$ and
+
+$\log S_T | S_t \sim \mathcal{N}(\log S_t + (r + \frac{1}{2} \sigma^2)(T - t), \sigma^2(T - t))$
+
+Therefore,
+
+$P^{**}(S_T \geq K | S_t) = \Phi(\frac{\log (\frac{S_t}{K}) + (r + \frac{\sigma^2}{2})(T - t)}{\sigma \sqrt{T - t}})$
+
+For *B*, we use the money market account as the numeraire, and consider
+the derivative with payout at time T $D^B(T, T) = KI\{S_T \geq K\}$.
+By the fundamental theorem:
+
+$\frac{D^B(t, T)}{M_t} = Ke^{-rT}P^*(S_T \geq K | S_t)$
+
+Under $P^*$, the risk-neutral distribution w.r.t the money market
+account, we set $\mu = r$, and so
+
+$\log S_T | S_t \sim \mathcal{N}(\log S_t + (r - \frac{1}{2}\sigma^2)(T - t), \sigma^2(T - t))$
+
+Combining *A* and *B* we obtain the *Black-Scholes formula*:
+
+*A*. $S_T I\{S_T \geq K\}$
+*B*. $-KI\{S_T \geq K\}$
+
+$C_K(t, T) = S_t \Phi(\frac{\log (\frac{S_t}{K}) + (r + \frac{\sigma^2}{2})(T - t)}{\sigma \sqrt{T - t}}) - Ke^{-r(T - t)} \Phi(\frac{\log (\frac{S_t}{K}) + (r + \frac{\sigma^2}{2})(T - t)}{\sigma \sqrt{T - t}} - \sigma \sqrt{T - t})$
